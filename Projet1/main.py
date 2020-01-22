@@ -31,8 +31,6 @@ def generation_alphabet_frequence(phrase):
 
 def ordonnement_par_frequence(alphabet,frequence,alphabet_ordonne=[],frequence_ordonnee=[]):
     if alphabet==[]:
-        print(alphabet_ordonne)
-        print(frequence_ordonnee)
         return alphabet_ordonne, frequence_ordonnee
     freq_min=min(frequence)
     for i in range(0,len(frequence)):
@@ -47,16 +45,30 @@ def ordonnement_par_frequence(alphabet,frequence,alphabet_ordonne=[],frequence_o
             frequence.remove(element)
     return ordonnement_par_frequence(alphabet,frequence,alphabet_ordonne,frequence_ordonnee)
 
-def ordonnement_par_ascii():
-    pass
+def ordonnement_par_ascii(alphabet,frequence):
+    res = []
+    alphabet_decoupe=decoupage(alphabet,frequence)
+    for alpha in alphabet_decoupe:
+        alpha = sorted(alpha,key = ord)
+        res = res + alpha
+    return res,frequence
+
+def decoupage(alphabet,frequence):
+    res=[]
+    for element in set(frequence):
+        tab=[]
+        for i in range(0,len(frequence)):
+            if frequence[i] == element:
+                tab.append(alphabet[i])
+        res.append(tab)
+    return res
+
+
+        
 
 alphabet=generation_alphabet_frequence(phrase)[0]
 frequence=generation_alphabet_frequence(phrase)[1]
 alphabet_frequence_ordonne_frq=ordonnement_par_frequence(alphabet,frequence)
-print(alphabet_frequence_ordonne_frq)
-
-
-
-
-
-
+ordonned=ordonnement_par_ascii(alphabet_frequence_ordonne_frq[0],alphabet_frequence_ordonne_frq[1])
+print(ordonned[0])
+print(ordonned[1])
