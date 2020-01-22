@@ -15,7 +15,8 @@ des caractères dans le texte. L’ordre des caractères de l’alphabet sera ma
 croissante puis par ordre de codage des caractères ASCII
 """
 
-phrase="bonjour!!"
+phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
+
 
 def generation_alphabet_frequence(phrase):
     alphabet=[]
