@@ -19,6 +19,9 @@ phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt")
 
 
 def generation_alphabet_frequence(phrase):
+    """
+    
+    """
     alphabet=[]
     frequence=[]
     for i in range(0,len(phrase)):
@@ -56,7 +59,8 @@ def ordonnement_par_ascii(alphabet,frequence):
 
 def decoupage(alphabet,frequence):
     res=[]
-    for element in set(frequence):
+    frequence_sans_doublon=sorted(set(frequence))
+    for element in frequence_sans_doublon:
         tab=[]
         for i in range(0,len(frequence)):
             if frequence[i] == element:
@@ -65,11 +69,33 @@ def decoupage(alphabet,frequence):
     return res
 
 
-        
-
 alphabet=generation_alphabet_frequence(phrase)[0]
 frequence=generation_alphabet_frequence(phrase)[1]
 alphabet_frequence_ordonne_frq=ordonnement_par_frequence(alphabet,frequence)
 ordonned=ordonnement_par_ascii(alphabet_frequence_ordonne_frq[0],alphabet_frequence_ordonne_frq[1])
 print(ordonned[0])
 print(ordonned[1])
+
+"""
+Etape 2 : Construction de l’arbre
+
+L’algorithme est décrit dans l’article de son créateur publié en 1952. Il repose sur une structure
+d’arbre binaire où tous les nœuds internes ont exactement deux successeurs. Les feuilles sont
+étiquetées avec les caractères de l’alphabet, les branches par 0 (fils gauche) et 1 (fils droit). Les
+chemins depuis la racine jusqu’aux feuilles constituent les codes des caractères.
+
+La construction de l’arbre est réalisée de la manière suivante :
+    
+Créer un arbre (feuille) pour chaque caractère de l’alphabet avec la fréquence associée
+Répéter
+Déterminer les 2 arbres t1 et t2 de fréquence minimale avec t1.freq <= t2.freq
+Créer un nouvel arbre t avec t1 et t2 comme sous-arbres respectivement gauche et droite
+avec t.freq = t1.freq + t2.freq
+Jusqu’à ce qu’il ne reste plus qu’un seul arbre
+"""
+
+
+
+
+
+
