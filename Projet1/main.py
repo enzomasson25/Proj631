@@ -17,7 +17,7 @@ croissante puis par ordre de codage des caractères ASCII
 
 phrase="bonjour!!"
 
-def etape1():
+def generation_alphabet_frequence():
     alphabet=[]
     frequence=[]
     for i in range(0,len(phrase)):
@@ -28,3 +28,9 @@ def etape1():
             rang=alphabet.index(phrase[i])
             frequence[rang]=frequence[rang]+1
     return alphabet, frequence
+
+def ordonnement_par_frequence():
+    pass
+
+def ordonnement_par_ascii():
+    pass
