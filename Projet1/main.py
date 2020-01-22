@@ -15,6 +15,7 @@ des caractères dans le texte. L’ordre des caractères de l’alphabet sera ma
 croissante puis par ordre de codage des caractères ASCII
 """
 
+
 phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
 
 
@@ -22,21 +23,21 @@ def generation_alphabet_frequence(phrase):
     """
     
     """
-    alphabet=[]
-    frequence=[]
+    alphabet = []
+    frequence = []
     for i in range(0,len(phrase)):
         if phrase[i] not in alphabet:
             alphabet.append(phrase[i])
             frequence.append(1)
         else:
-            rang=alphabet.index(phrase[i])
-            frequence[rang]=frequence[rang]+1
+            rang = alphabet.index(phrase[i])
+            frequence[rang] = frequence[rang]+1
     return alphabet, frequence
 
 def ordonnement_par_frequence(alphabet,frequence,alphabet_ordonne=[],frequence_ordonnee=[]):
     if alphabet==[]:
         return alphabet_ordonne, frequence_ordonnee
-    freq_min=min(frequence)
+    freq_min = min(frequence)
     for i in range(0,len(frequence)):
         if frequence[i]==freq_min:
             alphabet_ordonne.append(alphabet[i])
@@ -58,10 +59,10 @@ def ordonnement_par_ascii(alphabet,frequence):
     return res,frequence
 
 def decoupage(alphabet,frequence):
-    res=[]
-    frequence_sans_doublon=sorted(set(frequence))
+    res = []
+    frequence_sans_doublon = sorted(set(frequence))
     for element in frequence_sans_doublon:
-        tab=[]
+        tab = []
         for i in range(0,len(frequence)):
             if frequence[i] == element:
                 tab.append(alphabet[i])
@@ -75,6 +76,7 @@ alphabet_frequence_ordonne_frq=ordonnement_par_frequence(alphabet,frequence)
 ordonned=ordonnement_par_ascii(alphabet_frequence_ordonne_frq[0],alphabet_frequence_ordonne_frq[1])
 print(ordonned[0])
 print(ordonned[1])
+
 
 """
 Etape 2 : Construction de l’arbre
@@ -94,8 +96,33 @@ avec t.freq = t1.freq + t2.freq
 Jusqu’à ce qu’il ne reste plus qu’un seul arbre
 """
 
-
-
+class arbre:
+    
+    
+    def arbre(self,frequence,etiquette="",fils_gauche=None,fils_droit=None):
+        self.frequence=frequence
+        self.etiquette=etiquette 
+        self.fils_gauche=fils_gauche
+        self.fils_droit=fils_droit
+    
+    def set_frequence(self,frequence):
+        self.frequence=frequence
+    
+    #exemple :
+#    arbreb=arbre(1,'b')
+#    arbrej=arbre(1,'j')
+#    arbren=arbre(1,'n')
+#    arbrer=arbre(1,'r')
+#    arbreu=arbre(1,'u')
+#    arbrebexc=arbre(2,'!')
+#    arbreo=arbre(2,'o')
+#    arbre1=arbre(2,'',arbreb,arbrej)
+#    arbre2=arbre(2,'',arbren,arbrer)
+#    arbre3=arbre(3,'',arbreu,arbrebexc)
+#    arbre4=arbre(4,'',arbreo,arbre2)
+#    arbre5=arbre(5,'',arbre2,arbre3)
+#    arbre6=arbre(9,'',arbre4,arbre5)
+    
 
 
 
