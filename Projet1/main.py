@@ -192,9 +192,6 @@ while(len(liste_arbre)>1):
     liste_arbre.append(arbre(min1.frequence+min2.frequence,"",min1,min2))
 
 racine = liste_arbre[0]
-print(racine.fils_droit.fils_gauche.fils_gauche.frequence)
-print(racine.fils_droit.fils_gauche.fils_gauche.etiquette)
-#print(racine.frequence)      
 
 
 """
