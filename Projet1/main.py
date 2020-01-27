@@ -94,7 +94,21 @@ Créer un nouvel arbre t avec t1 et t2 comme sous-arbres respectivement gauche e
 avec t.freq = t1.freq + t2.freq
 Jusqu’à ce qu’il ne reste plus qu’un seul arbre
 """
-
+    #exemple :
+#    arbreb=arbre(1,'b')
+#    arbrej=arbre(1,'j')
+#    arbren=arbre(1,'n')
+#    arbrer=arbre(1,'r')
+#    arbreu=arbre(1,'u')
+#    arbrebexc=arbre(2,'!')
+#    arbreo=arbre(2,'o')
+#    arbre1=arbre(2,'',arbreb,arbrej)
+#    arbre2=arbre(2,'',arbren,arbrer)
+#    arbre3=arbre(3,'',arbreu,arbrebexc)
+#    arbre4=arbre(4,'',arbreo,arbre2)
+#    arbre5=arbre(5,'',arbre2,arbre3)
+#    arbre6=arbre(9,'',arbre4,arbre5)
+    
 class arbre:
     
     def __init__(self,frequence,etiquette="",fils_gauche=None,fils_droit=None):
@@ -111,7 +125,7 @@ class arbre:
     
     def get_frequence(self):
         return self.frequence
-
+    
     
 liste_arbre = []    
 for i in range(0,len(liste_frequence),2):
@@ -126,8 +140,6 @@ for i in range(0,len(liste_frequence),2):
 
     
 while len(liste_arbre)>1:
-#    for i in range(0,len(liste_arbre)):
-#        print(liste_arbre[i].etiquette + " " + str(liste_arbre[i].frequence))
     arbre_gauche=liste_arbre[0]
     arbre_droit=liste_arbre[1]
     arb = arbre(arbre_gauche.get_frequence()+arbre_droit.get_frequence(),"",arbre_gauche,arbre_droit) 
@@ -139,21 +151,14 @@ while len(liste_arbre)>1:
 racine = liste_arbre[0] 
 print(racine.frequence)      
 
-    #exemple :
-#    arbreb=arbre(1,'b')
-#    arbrej=arbre(1,'j')
-#    arbren=arbre(1,'n')
-#    arbrer=arbre(1,'r')
-#    arbreu=arbre(1,'u')
-#    arbrebexc=arbre(2,'!')
-#    arbreo=arbre(2,'o')
-#    arbre1=arbre(2,'',arbreb,arbrej)
-#    arbre2=arbre(2,'',arbren,arbrer)
-#    arbre3=arbre(3,'',arbreu,arbrebexc)
-#    arbre4=arbre(4,'',arbreo,arbre2)
-#    arbre5=arbre(5,'',arbre2,arbre3)
-#    arbre6=arbre(9,'',arbre4,arbre5)
-    
+
+"""
+Etape 3 : Codage du texte
+Le code de chaque caractère est obtenu par un parcours en profondeur de l’arbre.
+Chaque caractère du texte est alors codé par une succession de bits et le codage du texte est obtenu
+par concaténation des codes de chacun de ses caractères. Il sera stocké octet par octet dans le texte
+compressé.
+"""
 
 
 
