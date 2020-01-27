@@ -17,7 +17,7 @@ croissante puis par ordre de codage des caractères ASCII
 
 
 phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
-
+#phrase = "bonjour!!"
 
 def generation_alphabet_frequence(phrase):
     """
@@ -74,9 +74,8 @@ alphabet=generation_alphabet_frequence(phrase)[0]
 frequence=generation_alphabet_frequence(phrase)[1]
 alphabet_frequence_ordonne_frq=ordonnement_par_frequence(alphabet,frequence)
 ordonned=ordonnement_par_ascii(alphabet_frequence_ordonne_frq[0],alphabet_frequence_ordonne_frq[1])
-print(ordonned[0])
-print(ordonned[1])
-
+liste_caractere = ordonned[0]
+liste_frequence = ordonned[1]
 
 """
 Etape 2 : Construction de l’arbre
@@ -98,16 +97,48 @@ Jusqu’à ce qu’il ne reste plus qu’un seul arbre
 
 class arbre:
     
-    
-    def arbre(self,frequence,etiquette="",fils_gauche=None,fils_droit=None):
+    def __init__(self,frequence,etiquette="",fils_gauche=None,fils_droit=None):
         self.frequence=frequence
         self.etiquette=etiquette 
         self.fils_gauche=fils_gauche
         self.fils_droit=fils_droit
     
+    def __str__(self):
+        return "frequence : " + str(self.frequence) + " gauche : " + str(self.fils_gauche.frequence) + " droit : " + str(self.fils_droit.frequence)
+    
     def set_frequence(self,frequence):
         self.frequence=frequence
     
+    def get_frequence(self):
+        return self.frequence
+
+    
+liste_arbre = []    
+for i in range(0,len(liste_frequence),2):
+        arbre_gauche=arbre(liste_frequence[i],liste_caractere[i])
+        if(i+1<len(liste_frequence)):
+            arbre_droit=arbre(liste_frequence[i+1],liste_caractere[i+1])
+            arb = arbre(arbre_gauche.get_frequence()+arbre_droit.get_frequence(),"",arbre_gauche,arbre_droit) 
+            liste_arbre.append(arb)
+        else :
+            liste_arbre.append(arbre_gauche)
+
+
+    
+while len(liste_arbre)>1:
+#    for i in range(0,len(liste_arbre)):
+#        print(liste_arbre[i].etiquette + " " + str(liste_arbre[i].frequence))
+    arbre_gauche=liste_arbre[0]
+    arbre_droit=liste_arbre[1]
+    arb = arbre(arbre_gauche.get_frequence()+arbre_droit.get_frequence(),"",arbre_gauche,arbre_droit) 
+    liste_arbre.append(arb)
+    del liste_arbre[0]
+    del liste_arbre[0]
+    
+
+racine = liste_arbre[0] 
+print(racine.frequence)      
+
     #exemple :
 #    arbreb=arbre(1,'b')
 #    arbrej=arbre(1,'j')
