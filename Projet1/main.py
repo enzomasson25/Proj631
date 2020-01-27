@@ -15,9 +15,10 @@ des caractères dans le texte. L’ordre des caractères de l’alphabet sera ma
 croissante puis par ordre de codage des caractères ASCII
 """
 
+import itertools
 
 phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
-#phrase = "bonjour!!"
+#phrase = "bonjouri!!"
 
 def generation_alphabet_frequence(phrase):
     """
@@ -140,8 +141,12 @@ for i in range(0,len(liste_frequence),2):
 
     
 while len(liste_arbre)>1:
-    arbre_gauche=liste_arbre[0]
-    arbre_droit=liste_arbre[1]
+    if liste_arbre[0].frequence <= liste_arbre[1].frequence:
+        arbre_gauche=liste_arbre[0]
+        arbre_droit=liste_arbre[1]
+    else: 
+        arbre_gauche=liste_arbre[1]
+        arbre_droit=liste_arbre[0]
     arb = arbre(arbre_gauche.get_frequence()+arbre_droit.get_frequence(),"",arbre_gauche,arbre_droit) 
     liste_arbre.append(arb)
     del liste_arbre[0]
@@ -149,7 +154,7 @@ while len(liste_arbre)>1:
     
 
 racine = liste_arbre[0] 
-print(racine.frequence)      
+#print(racine.frequence)      
 
 
 """
@@ -158,7 +163,50 @@ Le code de chaque caractère est obtenu par un parcours en profondeur de l’arb
 Chaque caractère du texte est alors codé par une succession de bits et le codage du texte est obtenu
 par concaténation des codes de chacun de ses caractères. Il sera stocké octet par octet dans le texte
 compressé.
+
+-Aller a gauche tant qu'on  a pas d'étiquette => obtenir le premier  
+-generer toutes les autres possibilités 
+-associer le caractère aux possibilités 
 """
+
+def generer_chemins(chemin_depart):
+    result = ["".join(item) for item in itertools.product("01", repeat=len(chemin_depart))]
+    result = result + ["".join(item) for item in itertools.product("01", repeat=len(chemin_depart)-1)]
+    return result
+    
+def associer_chemin_caractere(racine,chemin):
+    for choix in chemin:
+        if choix == '1':
+            racine = racine.fils_gauche
+        else : 
+            racine = racine.fils_droit
+    
+    return racine.etiquette 
+
+noeud = racine
+res = ""
+while(noeud.etiquette==""):
+    res = res+"1"
+    noeud = noeud.fils_gauche
+
+possibilites = (generer_chemins(res))
+tab_carac_bin=[]
+for possibilite in possibilites :
+    if associer_chemin_caractere(racine,possibilite) != "":
+        tab_carac_bin.append([associer_chemin_caractere(racine,possibilite),possibilite])
+print(tab_carac_bin)
+
+        
+
+
+
+
+
+
+
+
+
+
 
 
 
