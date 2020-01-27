@@ -17,8 +17,9 @@ croissante puis par ordre de codage des caractères ASCII
 
 import itertools
 
-phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
-#phrase = "bonjouri!!"
+#phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
+phrase = "bonjour!!"
+#phrase = "ceci est un test"
 
 def generation_alphabet_frequence(phrase):
     """
@@ -121,13 +122,35 @@ class arbre:
     def __str__(self):
         return "frequence : " + str(self.frequence) + " gauche : " + str(self.fils_gauche.frequence) + " droit : " + str(self.fils_droit.frequence)
     
+    def __gt__(self, other):
+        if isinstance(other, arbre):
+            if self.frequence > other.frequence:
+                return True
+            elif self.frequence <= other.frequence:
+                return False
+            elif self.frequence > other.frequence:
+                return True
+            elif self.frequence <= other.frequence:
+                return False
+    
+    def __lt__(self, other):
+        if isinstance(other, arbre):
+            if self.frequence < other.frequence:
+                return True
+            elif self.frequence >= other.frequence:
+                return False
+            elif self.frequence < other.frequence:
+                return True
+            elif self.frequence >= other.frequence:
+                return False
+    
     def set_frequence(self,frequence):
         self.frequence=frequence
     
     def get_frequence(self):
         return self.frequence
     
-    
+"""
 liste_arbre = []    
 for i in range(0,len(liste_frequence),2):
         arbre_gauche=arbre(liste_frequence[i],liste_caractere[i])
@@ -152,8 +175,25 @@ while len(liste_arbre)>1:
     del liste_arbre[0]
     del liste_arbre[0]
     
-
 racine = liste_arbre[0] 
+"""
+liste_arbre=[]
+for i in range(0,len(liste_frequence)):
+    liste_arbre.append(arbre(liste_frequence[i],liste_caractere[i]))
+    
+
+#for i in range(0,len(liste_arbre)):
+#    print(liste_arbre[i].frequence)
+while(len(liste_arbre)>1):
+    min1=min(liste_arbre)
+    liste_arbre.remove(min1)
+    min2=min(liste_arbre)
+    liste_arbre.remove(min2)
+    liste_arbre.append(arbre(min1.frequence+min2.frequence,"",min1,min2))
+
+racine = liste_arbre[0]
+print(racine.fils_droit.fils_gauche.fils_gauche.frequence)
+print(racine.fils_droit.fils_gauche.fils_gauche.etiquette)
 #print(racine.frequence)      
 
 
@@ -170,8 +210,8 @@ compressé.
 """
 
 def generer_chemins(chemin_depart):
-    result = ["".join(item) for item in itertools.product("01", repeat=len(chemin_depart))]
-    result = result + ["".join(item) for item in itertools.product("01", repeat=len(chemin_depart)-1)]
+    result = ["".join(item) for item in itertools.product("01", repeat=3)]
+    result = result + ["".join(item) for item in itertools.product("01", repeat=2)]
     return result
     
 def associer_chemin_caractere(racine,chemin):
@@ -180,24 +220,30 @@ def associer_chemin_caractere(racine,chemin):
             racine = racine.fils_gauche
         else : 
             racine = racine.fils_droit
+    if type(racine)!=type(None):
+        return racine.etiquette 
+    else :
+        return ""
     
-    return racine.etiquette 
-
 noeud = racine
 res = ""
 while(noeud.etiquette==""):
     res = res+"1"
     noeud = noeud.fils_gauche
 
+
+
 possibilites = (generer_chemins(res))
+print(possibilites)
 tab_carac_bin=[]
 for possibilite in possibilites :
     if associer_chemin_caractere(racine,possibilite) != "":
         tab_carac_bin.append([associer_chemin_caractere(racine,possibilite),possibilite])
         
+
 print(tab_carac_bin)
 
-        
+       
 
 
 
