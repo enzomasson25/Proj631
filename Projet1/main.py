@@ -194,6 +194,7 @@ tab_carac_bin=[]
 for possibilite in possibilites :
     if associer_chemin_caractere(racine,possibilite) != "":
         tab_carac_bin.append([associer_chemin_caractere(racine,possibilite),possibilite])
+        
 print(tab_carac_bin)
 
         
