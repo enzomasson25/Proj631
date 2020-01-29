@@ -225,20 +225,30 @@ c’est-à-dire :
 Taux de compression = Gain en volume / Volume initial = 1 – Volume final / Volume initial
 Les volumes sont évalués en nombre d’octets
 """
-size_final=(os.path.getsize("data.bin"))
+
+#definition variables : 
+size_final=(os.path.getsize("data.bin")) 
 size_initial=(os.path.getsize(fichier_initial))
+
+#calcul du taux de compression :
 taux_de_compression=1-(size_final/size_initial)
+
+#affichage : 
 print("Le taux de compression pour "+str(fichier_initial)+" est de :"+str(taux_de_compression))
 
 
 """
 Etape 5 : Détermination du nombre moyen de bits de stockage d’un caractère du texte compressé
 """
+#definition variable :
 total = 0 
+
+#calcul de la moyene de bits d'un caractère :
 for lettre in liste_caractere:
     total = total + len(dic_carac_bin[lettre])
-
 nb_moy_bits=total/len(liste_caractere)
+
+#affichage : 
 print("Le nombre moyen de bits pour un caractère pour "+str(fichier_initial)+" est de : "+str(nb_moy_bits))
 
 
