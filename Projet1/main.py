@@ -20,6 +20,7 @@ import os
 fichier_initial=r"alice.txt"
 
 phrase = open(fichier_initial).read()
+#phrase = "ceci est un test"
 
 def generation_alphabet_frequence(phrase):
     """
@@ -195,17 +196,21 @@ def remplacement_lettre_binaire(phrase):
 
 phrase_binaire=remplacement_lettre_binaire(phrase)
 
+#ajout des bits manquants pour atteindre un nombre diviseur par 8 
 while len(phrase_binaire)%8 != 0 :
     phrase_binaire=phrase_binaire+'0'
-    
+
+#ecriture du fichier simple composé de 0 et de 1
 with open("data.txt", "w") as fichier:
 	fichier.write(phrase_binaire)
 fichier.close()
 
+#ici on sépart cette liste de 0 et de 1 en groupe de 8 bits 
 liste_octets=[]
 for i in range(8,len(phrase_binaire),8):
     liste_octets.append(phrase_binaire[i-8:i])
 
+#ecriture du fichier encodé en binaire celui-ci sera composé de symboles ascii 
 with open("data.bin", "wb") as fichier:
     for octet in liste_octets:
         fichier.write((int(octet, base=2)).to_bytes(-(-len(octet)//8), byteorder='big'))
@@ -229,13 +234,10 @@ print("Le taux de compression pour "+str(fichier_initial)+" est de :"+str(taux_d
 """
 Etape 5 : Détermination du nombre moyen de bits de stockage d’un caractère du texte compressé
 """
-
-"""
-CELA EST APPAREMENT FAUX LE RES DOIT ETRE ENVIRON 4
-"""
 total = 0 
 for lettre in liste_caractere:
     total = total + len(dic_carac_bin[lettre])
+
 nb_moy_bits=total/len(liste_caractere)
 print("Le nombre moyen de bits pour un caractère pour "+str(fichier_initial)+" est de : "+str(nb_moy_bits))
 
