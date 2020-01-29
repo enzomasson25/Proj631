@@ -202,12 +202,13 @@ dic_carac_bin=racine.parcourir()
 def remplacement_lettre_binaire(phrase):
     res=""
     for lettre in phrase:
-        print(lettre)
         res = res+dic_carac_bin[lettre]
     return res
 
-fichier = open("data.txt", "r")
-print(remplacement_lettre_binaire(phrase))
+with open("data.txt", "w") as fichier:
+	fichier.write(remplacement_lettre_binaire(phrase))
+fichier.close()
+
 
 
 
