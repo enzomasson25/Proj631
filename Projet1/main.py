@@ -15,11 +15,9 @@ des caractères dans le texte. L’ordre des caractères de l’alphabet sera ma
 croissante puis par ordre de codage des caractères ASCII
 """
 
-import binascii
-
 #phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
-phrase = "bonjour!!"
-#phrase = "ceci est un test"
+#phrase = "bonjour!!"
+phrase = "ceci est un test"
 
 def generation_alphabet_frequence(phrase):
     """
@@ -219,13 +217,16 @@ liste_octets=[]
 for i in range(8,len(phrase_binaire),8):
     liste_octets.append(phrase_binaire[i-8:i])
 
+liste_ascii=[]
+for octet in liste_octets:
+    liste_ascii.append(int(octet, base=2))
 
-carac_bin = phrase_binaire[:8].encode('ascii')
-print(carac_bin)
+print(liste_ascii)
 
-#with open("data.bin", "wb") as fichier:
-#	fichier.write(chr(carac_bin))
-#fichier.close()
+with open("data.bin", "wb") as fichier:
+    for carac in liste_ascii:
+        fichier.write(chr(carac).encode())
+fichier.close()
 
 
 
