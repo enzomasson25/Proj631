@@ -15,9 +15,11 @@ des caractères dans le texte. L’ordre des caractères de l’alphabet sera ma
 croissante puis par ordre de codage des caractères ASCII
 """
 
-#phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
-#phrase = "bonjour!!"
-phrase = "ceci est un test"
+import os
+
+fichier_initial=r"alice.txt"
+
+phrase = open(fichier_initial).read()
 
 def generation_alphabet_frequence(phrase):
     """
@@ -147,14 +149,14 @@ class arbre:
             res[self.etiquette]=chemin
         if not self.get_fils_gauche() is None:
             if chemin is None:
-                self.get_fils_gauche().parcourir('1')
+                self.get_fils_gauche().parcourir('0')
             else:
-                self.get_fils_gauche().parcourir(chemin + '1')            
+                self.get_fils_gauche().parcourir(chemin + '0')            
         if not self.get_fils_droit() is None:        
             if chemin is None:
-                self.get_fils_droit().parcourir('0')
+                self.get_fils_droit().parcourir('1')
             else:
-                self.get_fils_droit().parcourir(chemin + '0')            
+                self.get_fils_droit().parcourir(chemin + '1')            
         
         return res
         
@@ -185,7 +187,6 @@ compressé.
 
 dic_carac_bin=racine.parcourir()
 
-
 def remplacement_lettre_binaire(phrase):
     res=""
     for lettre in phrase:
@@ -205,19 +206,29 @@ liste_octets=[]
 for i in range(8,len(phrase_binaire),8):
     liste_octets.append(phrase_binaire[i-8:i])
 
-liste_ascii=[]
-for octet in liste_octets:
-    liste_ascii.append(int(octet, base=2))
-
-print(liste_ascii)
-
 with open("data.bin", "wb") as fichier:
-    for carac in liste_ascii:
-        fichier.write(chr(carac).encode())
+    for octet in liste_octets:
+        fichier.write((int(octet, base=2)).to_bytes(-(-len(octet)//8), byteorder='big'))
 fichier.close()
 
 
+"""
+Etape 4 : Détermination du taux de compression
+Le taux de compression constitue une mesure de performance de votre algorithme relativement au
+texte à compresser. Il est défini comme le gain en volume rapporté au volume initial des données,
+c’est-à-dire :
+Taux de compression = Gain en volume / Volume initial = 1 – Volume final / Volume initial
+Les volumes sont évalués en nombre d’octets
+"""
+size_final=(os.path.getsize("data.bin"))
+size_initial=(os.path.getsize(fichier_initial))
+taux_de_compression=1-(size_final/size_initial)
+print("Le taux de compression pour "+str(fichier_initial)+" est de :"+str(taux_de_compression))
 
+
+"""
+Etape 5 : Détermination du nombre moyen de bits de stockage d’un caractère du texte compressé
+"""
 
 
 
