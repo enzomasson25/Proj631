@@ -34,6 +34,10 @@ def generation_alphabet_frequence(phrase):
     return alphabet, frequence
 
 def ordonnement_par_frequence(alphabet,frequence,alphabet_ordonne=[],frequence_ordonnee=[]):
+    """
+    ordonnement_par_frequence(List[String] alphabet, List[Int] frequence,List[String] alphabet_ordonne, List[Int] frequence_ordonnee) -> return List[String] alphabet_ordonnee, List[int] frequence_ordonnee
+    Fonction qui va ordonner en fonction des fréquences nos deux List d'alphabet et de fréquence
+    """
     if alphabet==[]:
         return alphabet_ordonne, frequence_ordonnee
     freq_min = min(frequence)
@@ -50,6 +54,11 @@ def ordonnement_par_frequence(alphabet,frequence,alphabet_ordonne=[],frequence_o
     return ordonnement_par_frequence(alphabet,frequence,alphabet_ordonne,frequence_ordonnee)
 
 def ordonnement_par_ascii(alphabet,frequence):
+    """
+    ordonnement_par_ascii(List[String] alphabet, List[Int] frequence) -> return List[String] res, List[int] frequence_ordonnee
+    Fonction qui va ordonner en fonction des caractère ascii notre List d'alphabet
+    Ici on découpe nos deux listes de départ par fréquence pour garder l'ordonnement au niveau de la fréquence
+    """
     res = []
     alphabet_decoupe=decoupage(alphabet,frequence)
     for alpha in alphabet_decoupe:
@@ -58,6 +67,11 @@ def ordonnement_par_ascii(alphabet,frequence):
     return res,frequence
 
 def decoupage(alphabet,frequence):
+    """
+    decoupage(List[String] alphabet,List[Int] frequence) -> return List[String]
+    Fonction qui découpe nos deux listes de départ par fréquence 
+    Retourne seulement la liste de caractère 
+    """
     res = []
     frequence_sans_doublon = sorted(set(frequence))
     for element in frequence_sans_doublon:
@@ -68,7 +82,7 @@ def decoupage(alphabet,frequence):
         res.append(tab)
     return res
 
-
+#appel des différentes fonctions pour avoir deux listes (caractère et fréquence) liées entre elles
 alphabet=generation_alphabet_frequence(phrase)[0]
 frequence=generation_alphabet_frequence(phrase)[1]
 alphabet_frequence_ordonne_frq=ordonnement_par_frequence(alphabet,frequence)
