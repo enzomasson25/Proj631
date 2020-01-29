@@ -94,20 +94,7 @@ Créer un nouvel arbre t avec t1 et t2 comme sous-arbres respectivement gauche e
 avec t.freq = t1.freq + t2.freq
 Jusqu’à ce qu’il ne reste plus qu’un seul arbre
 """
-    #exemple :
-#    arbreb=arbre(1,'b')
-#    arbrej=arbre(1,'j')
-#    arbren=arbre(1,'n')
-#    arbrer=arbre(1,'r')
-#    arbreu=arbre(1,'u')
-#    arbrebexc=arbre(2,'!')
-#    arbreo=arbre(2,'o')
-#    arbre1=arbre(2,'',arbreb,arbrej)
-#    arbre2=arbre(2,'',arbren,arbrer)
-#    arbre3=arbre(3,'',arbreu,arbrebexc)
-#    arbre4=arbre(4,'',arbreo,arbre2)
-#    arbre5=arbre(5,'',arbre2,arbre3)
-#    arbre6=arbre(9,'',arbre4,arbre5)
+
     
 class arbre:
     
@@ -197,6 +184,7 @@ compressé.
 """
 
 dic_carac_bin=racine.parcourir()
+
 
 def remplacement_lettre_binaire(phrase):
     res=""
