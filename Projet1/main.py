@@ -230,7 +230,14 @@ print("Le taux de compression pour "+str(fichier_initial)+" est de :"+str(taux_d
 Etape 5 : Détermination du nombre moyen de bits de stockage d’un caractère du texte compressé
 """
 
-
+"""
+CELA EST APPAREMENT FAUX LE RES DOIT ETRE ENVIRON 4
+"""
+total = 0 
+for lettre in liste_caractere:
+    total = total + len(dic_carac_bin[lettre])
+nb_moy_bits=total/len(liste_caractere)
+print("Le nombre moyen de bits pour un caractère pour "+str(fichier_initial)+" est de : "+str(nb_moy_bits))
 
 
 
