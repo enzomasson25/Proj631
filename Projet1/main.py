@@ -15,6 +15,7 @@ des caractères dans le texte. L’ordre des caractères de l’alphabet sera ma
 croissante puis par ordre de codage des caractères ASCII
 """
 
+import binascii
 
 #phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
 phrase = "bonjour!!"
@@ -205,11 +206,26 @@ def remplacement_lettre_binaire(phrase):
         res = res+dic_carac_bin[lettre]
     return res
 
+phrase_binaire=remplacement_lettre_binaire(phrase)
+
+while len(phrase_binaire)%8 != 0 :
+    phrase_binaire=phrase_binaire+'0'
+    
 with open("data.txt", "w") as fichier:
-	fichier.write(remplacement_lettre_binaire(phrase))
+	fichier.write(phrase_binaire)
 fichier.close()
 
+liste_octets=[]
+for i in range(8,len(phrase_binaire),8):
+    liste_octets.append(phrase_binaire[i-8:i])
 
+
+carac_bin = phrase_binaire[:8].encode('ascii')
+print(carac_bin)
+
+#with open("data.bin", "wb") as fichier:
+#	fichier.write(chr(carac_bin))
+#fichier.close()
 
 
 
