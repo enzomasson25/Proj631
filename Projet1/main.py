@@ -2,29 +2,25 @@
 """
 Created on Wed Jan 22 08:19:44 2020
 
-@author: 33762
+@author: Masson Enzo
 """
+import os #utiliser pour connaitre la taille d'un fichier (étape 4)
 
 """
 Etape 1 : Détermination de l’alphabet et des fréquences de caractères
-
-L’alphabet sera composé des caractères présents dans le texte fourni et uniquement de ceux-ci. La
-fréquence des différents caractères de l’alphabet dans le texte sera déterminée. Le terme fréquence
-est ici, et dans toute la suite, utilisé pour une fréquence absolue, c’est-à-dire un nombre d’occurrences
-des caractères dans le texte. L’ordre des caractères de l’alphabet sera maintenu par fréquence
-croissante puis par ordre de codage des caractères ASCII
 """
 
-import os
-
+#fichier de départ
 fichier_initial=r"alice.txt"
-
 phrase = open(fichier_initial).read()
-#phrase = "ceci est un test"
+
 
 def generation_alphabet_frequence(phrase):
     """
-    
+    generation_alphabet_frequence(String phrase) -> return List[String] alphabet, List[int] frequence
+    Fonction qui va compter tous les caractères d'une String 
+    Retourne deux List donc les rangs correspondent 
+        frequence[i]=nb occurence de alphabet[i]
     """
     alphabet = []
     frequence = []
@@ -80,33 +76,23 @@ ordonned=ordonnement_par_ascii(alphabet_frequence_ordonne_frq[0],alphabet_freque
 liste_caractere = ordonned[0]
 liste_frequence = ordonned[1]
 
+
+
 """
 Etape 2 : Construction de l’arbre
-
-L’algorithme est décrit dans l’article de son créateur publié en 1952. Il repose sur une structure
-d’arbre binaire où tous les nœuds internes ont exactement deux successeurs. Les feuilles sont
-étiquetées avec les caractères de l’alphabet, les branches par 0 (fils gauche) et 1 (fils droit). Les
-chemins depuis la racine jusqu’aux feuilles constituent les codes des caractères.
-
-La construction de l’arbre est réalisée de la manière suivante :
-    
-Créer un arbre (feuille) pour chaque caractère de l’alphabet avec la fréquence associée
-Répéter
-Déterminer les 2 arbres t1 et t2 de fréquence minimale avec t1.freq <= t2.freq
-Créer un nouvel arbre t avec t1 et t2 comme sous-arbres respectivement gauche et droite
-avec t.freq = t1.freq + t2.freq
-Jusqu’à ce qu’il ne reste plus qu’un seul arbre
 """
 
-    
+ 
 class arbre:
     
+    #constructeur de la classe arbre :
     def __init__(self,frequence,etiquette="",fils_gauche=None,fils_droit=None):
         self.frequence=frequence
         self.etiquette=etiquette 
         self.fils_gauche=fils_gauche
         self.fils_droit=fils_droit
     
+    #surchargement de la classe arbre :
     def __str__(self):
         return "frequence : " + str(self.frequence) + " gauche : " + str(self.fils_gauche.frequence) + " droit : " + str(self.fils_droit.frequence)
     
@@ -132,9 +118,13 @@ class arbre:
             elif self.frequence >= other.frequence:
                 return False
     
+    
+    #set de la classe arbre :
     def set_frequence(self,frequence):
         self.frequence=frequence
     
+    
+    #get de la classe arbre :
     def get_frequence(self):
         return self.frequence
     
@@ -144,8 +134,14 @@ class arbre:
     def get_fils_gauche(self):
         return self.fils_gauche
     
-
+    
+    #fonctions :
     def parcourir(self,chemin=None,res={}):
+        """
+        parcourir(arbre,String,Dictionary{String etiquette:String chemin}) -> return Dictionary{String etiquette:String chemin}
+        fonction qui parcours un arbre en profondeur
+        retourne le dictionnaire composé des étiquettes des feuilles et de leur code binaire ici appelé chemin
+        """
         if self.get_fils_droit() is None and self.get_fils_gauche() is None:
             res[self.etiquette]=chemin
         if not self.get_fils_gauche() is None:
@@ -161,13 +157,14 @@ class arbre:
         
         return res
         
+#Construction de l'arbre :
 
+#On crée un arbre pour chaque caractère 
 liste_arbre=[]
 for i in range(0,len(liste_frequence)):
     liste_arbre.append(arbre(liste_frequence[i],liste_caractere[i]))
     
-#for i in range(0,len(liste_arbre)):
-#    print(liste_arbre[i].frequence)
+#Tant qu'on a plus q'un arbre on prend les 2 arbres avec les plus petites fréquences puis on crée un arbre avec ces arbres
 while(len(liste_arbre)>1):
     min1=min(liste_arbre)
     liste_arbre.remove(min1)
@@ -175,20 +172,23 @@ while(len(liste_arbre)>1):
     liste_arbre.remove(min2)
     liste_arbre.append(arbre(min1.frequence+min2.frequence,"",min1,min2))
 
+#Quand notre arbre est fini la racine est le premier (et unique) élément de notre liste d'arbre
 racine = liste_arbre[0]
 
 
 """
 Etape 3 : Codage du texte
-Le code de chaque caractère est obtenu par un parcours en profondeur de l’arbre.
-Chaque caractère du texte est alors codé par une succession de bits et le codage du texte est obtenu
-par concaténation des codes de chacun de ses caractères. Il sera stocké octet par octet dans le texte
-compressé.
 """
+
 
 dic_carac_bin=racine.parcourir()
 
+
 def remplacement_lettre_binaire(phrase):
+    """
+    remplacement_lettre_binaire(String phrase) -> Return String
+    Fonction qui remplace chaque caractère d'une String par son code binaire correspondant dans le dictionnaire dic_carac_bin
+    """
     res=""
     for lettre in phrase:
         res = res+dic_carac_bin[lettre]
@@ -213,21 +213,16 @@ for i in range(8,len(phrase_binaire),8):
 #ecriture du fichier encodé en binaire celui-ci sera composé de symboles ascii 
 with open("data.bin", "wb") as fichier:
     for octet in liste_octets:
-        fichier.write((int(octet, base=2)).to_bytes(-(-len(octet)//8), byteorder='big'))
+        fichier.write((int(octet, base=2)).to_bytes((len(octet)//8), byteorder='big')) #on convertit notre octet en int puis on le convertit en bytes et enfin on l'écrit dans notre fichier
 fichier.close()
 
 
 """
 Etape 4 : Détermination du taux de compression
-Le taux de compression constitue une mesure de performance de votre algorithme relativement au
-texte à compresser. Il est défini comme le gain en volume rapporté au volume initial des données,
-c’est-à-dire :
-Taux de compression = Gain en volume / Volume initial = 1 – Volume final / Volume initial
-Les volumes sont évalués en nombre d’octets
 """
 
 #definition variables : 
-size_final=(os.path.getsize("data.bin")) 
+size_final=(os.path.getsize("data.bin"))
 size_initial=(os.path.getsize(fichier_initial))
 
 #calcul du taux de compression :
@@ -240,6 +235,7 @@ print("Le taux de compression pour "+str(fichier_initial)+" est de :"+str(taux_d
 """
 Etape 5 : Détermination du nombre moyen de bits de stockage d’un caractère du texte compressé
 """
+
 #definition variable :
 total = 0 
 
