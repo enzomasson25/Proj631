@@ -15,7 +15,6 @@ des caractères dans le texte. L’ordre des caractères de l’alphabet sera ma
 croissante puis par ordre de codage des caractères ASCII
 """
 
-import itertools
 
 #phrase = open(r"C:\Users\33762\Desktop\cours\Sem6\ProjetAlgo\projet1\alice.txt").read()
 phrase = "bonjour!!"
@@ -150,38 +149,34 @@ class arbre:
     def get_frequence(self):
         return self.frequence
     
-"""
-liste_arbre = []    
-for i in range(0,len(liste_frequence),2):
-        arbre_gauche=arbre(liste_frequence[i],liste_caractere[i])
-        if(i+1<len(liste_frequence)):
-            arbre_droit=arbre(liste_frequence[i+1],liste_caractere[i+1])
-            arb = arbre(arbre_gauche.get_frequence()+arbre_droit.get_frequence(),"",arbre_gauche,arbre_droit) 
-            liste_arbre.append(arb)
-        else :
-            liste_arbre.append(arbre_gauche)
-
-
+    def get_fils_droit(self):
+        return self.fils_droit
     
-while len(liste_arbre)>1:
-    if liste_arbre[0].frequence <= liste_arbre[1].frequence:
-        arbre_gauche=liste_arbre[0]
-        arbre_droit=liste_arbre[1]
-    else: 
-        arbre_gauche=liste_arbre[1]
-        arbre_droit=liste_arbre[0]
-    arb = arbre(arbre_gauche.get_frequence()+arbre_droit.get_frequence(),"",arbre_gauche,arbre_droit) 
-    liste_arbre.append(arb)
-    del liste_arbre[0]
-    del liste_arbre[0]
+    def get_fils_gauche(self):
+        return self.fils_gauche
     
-racine = liste_arbre[0] 
-"""
+
+    def parcourir(self,chemin=None,res={}):
+        if self.get_fils_droit() is None and self.get_fils_gauche() is None:
+            res[self.etiquette]=chemin
+        if not self.get_fils_gauche() is None:
+            if chemin is None:
+                self.get_fils_gauche().parcourir('1')
+            else:
+                self.get_fils_gauche().parcourir(chemin + '1')            
+        if not self.get_fils_droit() is None:        
+            if chemin is None:
+                self.get_fils_droit().parcourir('0')
+            else:
+                self.get_fils_droit().parcourir(chemin + '0')            
+        
+        return res
+        
+
 liste_arbre=[]
 for i in range(0,len(liste_frequence)):
     liste_arbre.append(arbre(liste_frequence[i],liste_caractere[i]))
     
-
 #for i in range(0,len(liste_arbre)):
 #    print(liste_arbre[i].frequence)
 while(len(liste_arbre)>1):
@@ -200,49 +195,19 @@ Le code de chaque caractère est obtenu par un parcours en profondeur de l’arb
 Chaque caractère du texte est alors codé par une succession de bits et le codage du texte est obtenu
 par concaténation des codes de chacun de ses caractères. Il sera stocké octet par octet dans le texte
 compressé.
-
--Aller a gauche tant qu'on  a pas d'étiquette => obtenir le premier  
--generer toutes les autres possibilités 
--associer le caractère aux possibilités 
 """
 
-def generer_chemins(chemin_depart):
-    result = ["".join(item) for item in itertools.product("01", repeat=3)]
-    result = result + ["".join(item) for item in itertools.product("01", repeat=2)]
-    return result
-    
-def associer_chemin_caractere(racine,chemin):
-    for choix in chemin:
-        if choix == '1':
-            racine = racine.fils_gauche
-        else : 
-            racine = racine.fils_droit
-    if type(racine)!=type(None):
-        return racine.etiquette 
-    else :
-        return ""
-    
-noeud = racine
-res = ""
-while(noeud.etiquette==""):
-    res = res+"1"
-    noeud = noeud.fils_gauche
+dic_carac_bin=racine.parcourir()
 
+def remplacement_lettre_binaire(phrase):
+    res=""
+    for lettre in phrase:
+        print(lettre)
+        res = res+dic_carac_bin[lettre]
+    return res
 
-
-possibilites = (generer_chemins(res))
-print(possibilites)
-tab_carac_bin=[]
-for possibilite in possibilites :
-    if associer_chemin_caractere(racine,possibilite) != "":
-        tab_carac_bin.append([associer_chemin_caractere(racine,possibilite),possibilite])
-        
-
-print(tab_carac_bin)
-
-       
-
-
+fichier = open("data.txt", "r")
+print(remplacement_lettre_binaire(phrase))
 
 
 
