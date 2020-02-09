@@ -232,7 +232,7 @@ fichier.close()
 
 
 """
-Etape 4 : Détermination du taux de compression
+Etape 4 : Calculs sur les résultats
 """
 
 #definition variables : 
@@ -245,10 +245,6 @@ taux_de_compression=1-(size_final/size_initial)
 #affichage : 
 print("Le taux de compression pour "+str(fichier_initial)+" est de :"+str(taux_de_compression))
 
-
-"""
-Etape 5 : Détermination du nombre moyen de bits de stockage d’un caractère du texte compressé
-"""
 
 #definition variable :
 total = 0 
