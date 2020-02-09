@@ -11,7 +11,7 @@ Etape 1 : Détermination de l’alphabet et des fréquences de caractères
 """
 
 #fichier de départ
-fichier_initial=r"alice.txt"
+fichier_initial=input("Votre fichier txt à compresser :")
 phrase = open(fichier_initial).read()
 
 
