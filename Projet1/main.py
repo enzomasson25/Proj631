@@ -116,10 +116,7 @@ class arbre:
                 return True
             elif self.frequence <= other.frequence:
                 return False
-            elif self.frequence > other.frequence:
-                return True
-            elif self.frequence <= other.frequence:
-                return False
+            
     
     def __lt__(self, other):
         if isinstance(other, arbre):
@@ -127,10 +124,7 @@ class arbre:
                 return True
             elif self.frequence >= other.frequence:
                 return False
-            elif self.frequence < other.frequence:
-                return True
-            elif self.frequence >= other.frequence:
-                return False
+           
     
     
     #set de la classe arbre :
