@@ -15,3 +15,7 @@ des éléments de l’alphabet.
 # Fonctionnement du programme
 
 ![alt text](https://github.com/enzomasson25/Proj631/blob/master/Projet1/src/Untitled%20Diagram.png)
+
+# Utilisation du programme 
+
+Exécuter le code du fichier main.py, renseigner le fichier que vous voulez compresser. Le fichier compressé data.bin de votre fichier de départ se trouve dans le dossier du main.py.
