@@ -11,3 +11,5 @@ aujourd’hui utilisées dans des algorithmes de compression de fichiers tels qu
 Ce sujet concerne la version semi-adaptative de l’algorithme dans laquelle le texte à coder est tout
 d’abord lu intégralement de façon à construire l’alphabet et déterminer les fréquences d’apparition
 des éléments de l’alphabet.
+
+![alt text](http://url/to/img.png)
