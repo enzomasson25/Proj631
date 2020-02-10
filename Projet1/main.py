@@ -191,7 +191,6 @@ Etape 3 : Codage du texte
 
 dic_carac_bin=racine.parcourir()
 
-
 def remplacement_lettre_binaire(phrase):
     """
     remplacement_lettre_binaire(String phrase) -> Return String
@@ -244,9 +243,9 @@ print("Le taux de compression pour "+str(fichier_initial)+" est de :"+str(taux_d
 total = 0 
 
 #calcul de la moyene de bits d'un caractère :
-for lettre in liste_caractere:
-    total = total + len(dic_carac_bin[lettre])
-nb_moy_bits=total/len(liste_caractere)
+for i in range(0,len(liste_caractere)):
+    total = total + len(dic_carac_bin[liste_caractere[i]])*liste_frequence[i]
+nb_moy_bits=total/sum(liste_frequence)
 
 #affichage : 
 print("Le nombre moyen de bits pour un caractère pour "+str(fichier_initial)+" est de : "+str(nb_moy_bits))
