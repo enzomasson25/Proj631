@@ -12,4 +12,4 @@ Ce sujet concerne la version semi-adaptative de l’algorithme dans laquelle le 
 d’abord lu intégralement de façon à construire l’alphabet et déterminer les fréquences d’apparition
 des éléments de l’alphabet.
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/enzomasson25/Proj631/blob/master/Projet1/src/Untitled%20Diagram.png)
