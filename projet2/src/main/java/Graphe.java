@@ -47,6 +47,7 @@ public class Graphe<Noeud,Edge> extends SimpleWeightedGraph {
 	public void ajouterNoeudGraphe(NoeudSysteme noeud) {
 		this.listeNoeud.add(noeud);
 	}
+
 	
 	public NoeudSysteme getNoeudById(int idNoeud) {
 		for(int i = 0;i<this.listeNoeud.size();i++) {
